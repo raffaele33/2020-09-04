@@ -50,12 +50,29 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	txtResult.clear();
+    	double r;
+    	try {
+    		r = Double.parseDouble(txtRank.getText());
+    			if(r<0.0 || r>10.0) {
+    				txtResult.appendText("inserire un valore valido compreso tra 0.0 e 10.0 ");
+    				return;
+    			}
+    	} catch (NumberFormatException e) {
+    		txtResult.appendText("Devi inserire un valore numerico!");
+    		return;
+    	}
     	
+    	this.model.CreaGrafo(r);
+    	txtResult.appendText("Grafo creato!\n");
+    	txtResult.appendText("# VERTICI: " + this.model.nVertici() + "\n");
+    	txtResult.appendText("# ARCHI: " + this.model.nArchi());
     }
 
     @FXML
     void doGradoMax(ActionEvent event) {
-    	
+    	txtResult.clear();
+    	txtResult.appendText(" film di grado massimo : "+this.model.getBest().toString());
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
